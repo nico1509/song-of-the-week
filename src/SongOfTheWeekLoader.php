@@ -57,14 +57,6 @@ class SongOfTheWeekLoader
         curl_close($curl);
 
         $accessToken = json_decode($result, true)['access_token'];
-
-
-
-        print($result);
-
-
-
-
         file_put_contents($this->dataDir . '/' . self::AT_FILE, $accessToken);
 
         return $accessToken;
