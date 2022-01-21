@@ -31,7 +31,7 @@ if ($sotw !== null) {
 
 $accessToken = $sotwLoader->renewAccessToken();
 if ($accessToken === null) {
-    print('Cannot renew access token');
+    print('Cannot renew access token. Check your client/user credentials');
     exit(1);
 }
 
@@ -41,5 +41,5 @@ if ($sotw !== null) {
     exit(0);
 }
 
-print('Unknown error...');
+print('Cannot load playlist or song. Check your access token.');
 exit(1);
