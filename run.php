@@ -34,6 +34,8 @@ if ($accessToken === null) {
     print('Cannot renew access token');
     exit(1);
 }
+
+$sotw = $sotwLoader->loadSongOfTheWeek($accessToken);
 if ($sotw !== null) {
     print($sotw);
     exit(0);
