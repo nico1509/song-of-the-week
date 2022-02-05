@@ -6,8 +6,10 @@ class SongOfTheWeekLoader
     private const AUTH_API = 'https://accounts.spotify.com/api/token';
     private const AT_FILE = 'access-token.txt';
     private const PLAYLIST_FILE = 'on-repeat.json';
-    private const SOTW_FILE = 'song-of-the-week.txt';
+    private const SOTW_TITLE_FILE = 'song-of-the-week-title.txt';
+    private const SOTW_ARTIST_FILE = 'song-of-the-week-artist.txt';
     private const SOTW_URL_FILE = 'song-of-the-week-url.txt';
+    private const SOTW_COVER_URL_FILE = 'song-of-the-week-cover-url.txt';
 
     private string $onRepeatPlaylistId;
     private string $dataDir;
@@ -108,11 +110,13 @@ class SongOfTheWeekLoader
         $trackName = $playlist['tracks']['items'][$randomTrackId]['track']['name'];
         $trackLink = $playlist['tracks']['items'][$randomTrackId]['track']['external_urls']['spotify'];
         $artist = $playlist['tracks']['items'][$randomTrackId]['track']['artists'][0]['name'];
+        $coverUrl = $playlist['tracks']['items'][$randomTrackId]['track']['album']['images'][2]['url'];
 
-        $sotwText = $artist . ' - ' . $trackName;
-        file_put_contents($this->dataDir . '/' . self::SOTW_FILE, $sotwText);
+        file_put_contents($this->dataDir . '/' . self::SOTW_TITLE_FILE, $trackName);
+        file_put_contents($this->dataDir . '/' . self::SOTW_ARTIST_FILE, $artist);
         file_put_contents($this->dataDir . '/' . self::SOTW_URL_FILE, $trackLink);
-        return $sotwText . '(' . $trackLink . ')';
+        file_put_contents($this->dataDir . '/' . self::SOTW_COVER_URL_FILE, $coverUrl);
+        return $trackName . ' - ' . $artist . '(' . $trackLink . ')';
     }
 
 }
